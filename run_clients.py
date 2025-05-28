@@ -1,5 +1,3 @@
-# run_clients.py
-
 import subprocess
 import threading
 import time

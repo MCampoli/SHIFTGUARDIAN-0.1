@@ -1,15 +1,20 @@
 # classes.py
 
 class Employee:
-    def __init__(self, emp_id, full_name):
+    def __init__(self, emp_id, first_name, last_name, position, department):
         self.emp_id = emp_id
-        self.full_name = full_name
+        self.first_name = first_name
+        self.last_name = last_name
+        self.position = position
+        self.department = department
 
     def __str__(self):
-        return f"Employee(id={self.emp_id}, name={self.full_name})"
+        return (f"Employee(id={self.emp_id}, name={self.first_name} {self.last_name}, "
+                f"position={self.position}, department={self.department})")
 
     def __eq__(self, other):
         return isinstance(other, Employee) and self.emp_id == other.emp_id
+
 
 class Shift:
     def __init__(self, date, hours):
@@ -21,6 +26,7 @@ class Shift:
 
     def __eq__(self, other):
         return isinstance(other, Shift) and self.date == other.date and self.hours == other.hours
+
 
 class Department:
     def __init__(self, name, people_count):

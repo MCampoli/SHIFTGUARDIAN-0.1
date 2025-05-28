@@ -20,10 +20,22 @@ class Server:
         self.init_data()
 
     def init_data(self):
-        for i in range(1, 5):
-            self.data_map[f'employee_{i}'] = Employee(i, f'Employee {i}')
-            self.data_map[f'shift_{i}'] = Shift(f'2025-06-0{i}', f'{8+i}:00-16:00')
-            self.data_map[f'department_{i}'] = Department(f'Department {i}', 5 + i)
+        # Tworzymy przykładowych pracowników z rozbiciem imienia i nazwiska oraz innymi polami
+        self.data_map['employee_1'] = Employee(1, "Jan", "Kowalski", "Programista", "IT")
+        self.data_map['employee_2'] = Employee(2, "Anna", "Nowak", "Tester", "QA")
+        self.data_map['employee_3'] = Employee(3, "Piotr", "Wiśniewski", "Manager", "HR")
+        self.data_map['employee_4'] = Employee(4, "Kasia", "Zielińska", "Analityk", "Finanse")
+
+        self.data_map['shift_1'] = Shift('2025-06-01', '08:00-16:00')
+        self.data_map['shift_2'] = Shift('2025-06-02', '10:00-18:00')
+        self.data_map['shift_3'] = Shift('2025-06-03', '12:00-20:00')
+        self.data_map['shift_4'] = Shift('2025-06-04', '09:00-17:00')
+
+        self.data_map['department_1'] = Department('IT', 10)
+        self.data_map['department_2'] = Department('QA', 5)
+        self.data_map['department_3'] = Department('HR', 3)
+        self.data_map['department_4'] = Department('Finanse', 8)
+
         print(f"Initialized data keys: {list(self.data_map.keys())}")
 
     def client_thread(self, conn, addr):
@@ -47,8 +59,8 @@ class Server:
 
                 objs = [obj for key, obj in self.data_map.items() if key.startswith(class_name + "_")]
                 if not objs:
-                    if self.data_map:
-                        objs = [next(iter(self.data_map.values()))]
+                    # Jeśli nie ma obiektów danej klasy, wysyłamy pustą listę
+                    objs = []
 
                 conn.sendall(pickle.dumps(objs))
                 print(f"Sent {len(objs)} objects of class '{class_name}' to client {client_id}")

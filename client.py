@@ -20,7 +20,7 @@ class Client(threading.Thread):
     def __init__(self, client_id):
         super().__init__()
         self.client_id = client_id
-        self.classes_to_request = ['Employee', 'Shift', 'Department', 'Project']  # 'Project' nie istnieje
+        self.classes_to_request = ['Employee', 'Shift', 'Department']  # usunięto 'Project'
 
     def run(self):
         try:
@@ -52,8 +52,6 @@ class Client(threading.Thread):
                                     print(f"Client {self.client_id}: {obj}")
                                 elif cls_name == "Department" and isinstance(obj, Department):
                                     print(f"Client {self.client_id}: {obj}")
-                                elif cls_name == "Project":
-                                    raise TypeError("No such class Project")
                                 else:
                                     raise TypeError(f"Type mismatch for class {cls_name}")
                             except Exception as e:
